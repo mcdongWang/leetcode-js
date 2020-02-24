@@ -31,12 +31,40 @@
  */
 
 // @lc code=start
+// Manacher's Algorithm
+// 对每个字符间 增加 ‘#’ 解决 奇数回文 和 偶数回文的问题
+
 /**
  * @param {string} s
  * @return {string}
  */
 var longestPalindrome = function(s) {
-    
+	var s_len=s.length
+	if(s_len<2){
+    	return s
+    }
+	var string=s[0]
+    var s_len_1=s_len-1
+    var start=0
+    var end=0
+    for(var i=0;i<s_len_1;i++){
+    	let this_end_i=i
+    	while(this_end_i<s_len_1&&s[this_end_i]==s[this_end_i+1]){
+    		this_end_i++
+    	}
+    	let i2=this_end_i
+    	while(i>0&&this_end_i<s_len_1&&s[i-1]==s[this_end_i+1]){
+    		i--
+    		this_end_i++
+    	}
+    	if(this_end_i-i>end-start){
+    		start=i
+    		end=this_end_i
+    	}
+    	i=i2
+    }	
+    string=s.slice(start,end+1)
+    return string
 };
 // @lc code=end
 
